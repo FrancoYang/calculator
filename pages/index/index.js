@@ -1,0 +1,26 @@
+//index.js
+//获取应用实例
+Page({
+  data:{
+    id1:"clear",
+    id2:"back",
+    id3:"history",
+    id4:"div",
+    id5:"7",
+    id6:"8",
+    id7:"9",
+    id8:"mul",
+    id9:"4",
+    id10:"5",
+    id11:"6",
+    id12:"sub",
+    id13:"1",
+    id14:"2",
+    id15:"3",
+    id16:"add",
+    id17:"0",
+    id18:"dot",
+    id19:"equals",
+    result:"0"
+  }
+})

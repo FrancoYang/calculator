@@ -1,0 +1,61 @@
+/**index.wxss**/
+page{
+  background: #000;
+}
+.screen{
+  position: fixed;
+  bottom: 780rpx;
+  word-wrap: break-word;  
+  /* 显示不下的换一行显示 */
+  width: 750rpx;
+}
+.screen view{
+  color: #fff;
+  font-size: 30px;
+  text-align: right;
+  margin-right: 30rpx;
+}
+.btnGroup{
+  display: flex;
+  flex-direction: row; 
+  /* 使用弹性盒模型横向排列 */
+}
+
+.btn-item{
+  width: 188rpx;
+  text-align: center;
+  line-height: 150rpx;
+  border-radius: 0;
+}
+.zero{
+  width: 376rpx;
+}
+.bottom{
+  position: fixed;
+  bottom: 0;
+}
+.white{
+  background: #efefed;
+}
+
+.orange{
+  background: #fc9504;
+}
+
+.gray{
+  background: #cfcfcf;
+}
+
+icon{
+  position: absolute;
+  left: 55rpx;
+  top: 37rpx;
+}
+button::after{
+  border-radius: 0;
+}
+
+/* hover-class是小程序里特有的，意为按钮按下去后的样式，如果不加的话，默认是点击点文字加亮的效果 */
+.shadow{
+  background: #999;
+}
