@@ -22,9 +22,9 @@ Page({
     id18:"dot",
     id19:"equals",
     result:"0",
-    dotSign:false
+    // dotSign:false
   },
-  clickButton(e){
+  /*clickButton(e){
     var btnValue=e.target.id;
     var res=this.data.result;
     var newDotSign=this.data.dotSign;
@@ -134,5 +134,64 @@ Page({
     this.setData({
       result:"="+res
     });
+  }*/
+  clickButton(e){
+    var data=this.data.result; //获取上一次的结果值
+    var tmp=this.data.temp; //获取上一次的临时结果
+    var lastoper1=this.data.lastoper; //获取上一次的运算符
+    var noNumFlag=this.data.flag; //获取上一次的非数字按钮标志
+
+    //判断是否是按了数字键
+    if(e.target.id>="num_0"&&e.target.id<="num_9"){
+      data+=e.target.id.split("_")[1];
+      noNumFlag=false;
+      //以上是正常情况，串接输入的数字
+      //以下是如果原值为0或者非数字键,则用输入的值替代
+      if(this.data.result=="0"||noNumFlag){
+        data=e.target.id.split("_")[1];
+      }
+
+    }else{
+      //如果不是按的数字
+      noNumFlag=true;
+      //如果输入的是小数点
+      if(e.target.id=="dot"){
+        //如果之前的值里面不含小数点才执行
+        if(data.toString().indexOf(".")==-1){
+          data+=".";
+        }
+      }else if(e.target.id=="clear"){
+        //如果是清除按键则全部清零
+        data=0;
+        tmp=0;
+        lastoper1="+";
+      }else if(e.target.id=="back"){
+        if(data.toString().length>1){
+          //如果长度超过1位数,去掉最后一位,否则的话，直接变成0
+          data=data.substr(0,data.toString().length-1);
+        }else{
+          data=0;
+        }
+      }else if(1){
+
+      }else if(1){
+
+      }else if(1){
+
+      }else if(1){
+
+      }else if(1){
+
+      }
+      
+    }
+  // 最后更新值
+  this.setData({
+    result:data,
+    lastoper:lastoper1,
+    temp:tmp,
+    flag:noNumFlag
+  })
+
   }
 })
