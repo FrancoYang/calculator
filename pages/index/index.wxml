@@ -38,7 +38,7 @@
   <view class='btnGroup'>
     <button bindtap='clickButton' id="{{id17}}" hover-class='shadow' class='btn-item zero white'>0</button>
     <button bindtap='clickButton' id="{{id18}}" hover-class='shadow' class='btn-item white'>.</button>
-    <button bindtap='equals' id="{{id19}}" hover-class='shadow'  class='btn-item orange'>=</button>
+    <button bindtap='clickButton' id="{{id19}}" hover-class='shadow'  class='btn-item orange'>=</button>
  
   </view>
 </view>

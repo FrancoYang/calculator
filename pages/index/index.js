@@ -1,5 +1,30 @@
 //index.js
-//获取应用实例
+//封装一个计算的函数
+var calculate = function (data1, oper, data2) {
+  var data;
+  data1 = parseFloat(data1);
+  data2 = parseFloat(data2);
+  switch (oper) {
+    case "+":
+      data = data1 + data2;
+      break;
+    case "-":
+      data = data1 - data2;
+      break;
+    case "*":
+      data = data1 * data2;
+      break;
+    case "/":
+      if (data2 !== 0) {
+        data = data1 / data2;
+      } else {
+        data = 0;
+      }
+      break;
+  }
+  return data;
+}
+
 Page({
   data:{
     id1:"clear",
@@ -150,7 +175,7 @@ Page({
       if(this.data.result=="0"||noNumFlag){
         data=e.target.id.split("_")[1];
       }
-
+      noNumFlag = false;
     }else{
       //如果不是按的数字
       noNumFlag=true;
@@ -172,16 +197,26 @@ Page({
         }else{
           data=0;
         }
-      }else if(1){
-
-      }else if(1){
-
-      }else if(1){
-
-      }else if(1){
-
-      }else if(1){
-
+      }else if(e.target.id=="div"){
+        data=calculate(tmp,lastoper1,data);
+        tmp=data;
+        lastoper1="/";
+      } else if(e.target.id == "mul"){
+        data = calculate(tmp, lastoper1, data);
+        tmp = data;
+        lastoper1 = "*";
+      } else if(e.target.id == "add"){
+        data = calculate(tmp, lastoper1, data);
+        tmp = data;
+        lastoper1 = "+";
+      } else if(e.target.id == "sub"){
+        data = calculate(tmp, lastoper1, data);
+        tmp = data;
+        lastoper1 = "-";
+      } else if(e.target.id == "equals"){
+        data = calculate(tmp, lastoper1, data);
+        tmp = 0;
+        lastoper1 = "+";
       }
       
     }
@@ -195,3 +230,5 @@ Page({
 
   }
 })
+
+
