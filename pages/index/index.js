@@ -47,6 +47,9 @@ Page({
     id18:"dot",
     id19:"equals",
     result:"0",
+    lastoper:null,
+    temp:"0",
+    flag:null
     // dotSign:false
   },
   /*clickButton(e){
@@ -161,17 +164,23 @@ Page({
     });
   }*/
   clickButton(e){
-    var data=this.data.result; //获取上一次的结果值
-    var tmp=this.data.temp; //获取上一次的临时结果
-    var lastoper1=this.data.lastoper; //获取上一次的运算符
-    var noNumFlag=this.data.flag; //获取上一次的非数字按钮标志
+    console.log(e);
+    var data=this.data.result;
+    //获取上一次的结果值
+    var tmp=this.data.temp;
+    //获取上一次的临时结果
+    var lastoper1=this.data.lastoper;
+    //获取上一次的运算符
+    var noNumFlag=this.data.flag;
+    //获取上一次的非数字按钮标志
 
     //判断是否是按了数字键
-    if(e.target.id>="num_0"&&e.target.id<="num_9"){
+    if(e.target.id>="num_0" && e.target.id<="num_9"){
       data+=e.target.id.split("_")[1];
-      noNumFlag=false;
+
       //以上是正常情况，串接输入的数字
-      //以下是如果原值为0或者非数字键,则用输入的值替代
+
+      //以下是如果原值为0或者非数字键,则用输入的值替代,注意这里有个例外，如果上次是点的话，要像数字那样拼接的
       if(this.data.result=="0"||noNumFlag){
         data=e.target.id.split("_")[1];
       }
@@ -184,6 +193,7 @@ Page({
         //如果之前的值里面不含小数点才执行
         if(data.toString().indexOf(".")==-1){
           data+=".";
+          noNumFlag = false;
         }
       }else if(e.target.id=="clear"){
         //如果是清除按键则全部清零

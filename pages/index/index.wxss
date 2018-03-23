@@ -23,6 +23,7 @@ page{
 
 .btn-item{
   width: 188rpx;
+  /* 屏幕宽度750rpx，平分给4个按钮 */
   text-align: center;
   line-height: 150rpx;
   border-radius: 0;
