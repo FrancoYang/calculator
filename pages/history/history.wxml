@@ -1,0 +1,5 @@
+
+
+<block wx:for="{{exprs}}">
+ <view>{{item}}</view>
+</block>

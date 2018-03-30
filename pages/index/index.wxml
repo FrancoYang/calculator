@@ -3,12 +3,17 @@
   <view>{{result}}</view>
 </view>
 
+<view>
+<switch type='checkbox' checked='{{record}}' color='#000' bindchange='recordHistory'></switch>
+<view class='historytext'>保存历史记录</view>
+</view>
+
 <view class='bottom'>
   <view class='btnGroup'>
     <button bindtap='clickButton' id="{{id1}}" hover-class='shadow' class='btn-item gray'>清除</button>
     <button bindtap='clickButton' id="{{id2}}" hover-class='shadow' class='btn-item gray'>回退</button>
     <button bindtap='clickButton' id="{{id3}}" hover-class='shadow' class='btn-item gray'>
-      <icon type='waiting' size='30' color='#999'></icon>
+      <icon type='waiting' size='30' color='#000'></icon>
     </button>
     <button bindtap='clickButton' id="{{id4}}" hover-class='shadow' class='btn-item orange'>/</button>
  

@@ -25,146 +25,44 @@ var calculate = function (data1, oper, data2) {
   return data;
 }
 
+//封装一个把所有数据保存到本地缓存数组的函数
+var saveExprs=function(expr){
+  var exprs=wx.getStorageSync("exprs")||[];
+  exprs.unshift(expr);
+  wx.setStorageSync("exprs",exprs)
+}
+
+
 Page({
   data:{
-    id1:"clear",
-    id2:"back",
-    id3:"history",
+    id1:"clear",  //清除所有
+    id2:"back",   //回退一个
+    id3:"history",  //历史
     id4:"div",
     id5:"num_7",
     id6:"num_8",
     id7:"num_9",
-    id8:"mul",
+    id8:"mul",  //乘
     id9:"num_4",
     id10:"num_5",
     id11:"num_6",
-    id12:"sub",
+    id12:"sub",  //减
     id13:"num_1",
     id14:"num_2",
     id15:"num_3",
-    id16:"add",
+    id16:"add",  //加
     id17:"num_0",
-    id18:"dot",
+    id18:"dot",  //小数点
     id19:"equals",
-    result:"0",
-    lastoper:null,
-    temp:"0",
-    flag:null
-    // dotSign:false
+    result:"0",  //计算结果
+    lastoper:"+",  //上一次的操作符
+    temp:"0",  //临时结果
+    flag:true,  //上一按钮是非数字按钮
+    record:true,  //计算过程保存到历史记录中
+    expr:""  //计算表达式
   },
-  /*clickButton(e){
-    var btnValue=e.target.id;
-    var res=this.data.result;
-    var newDotSign=this.data.dotSign;
-    //处理数字部分的按键
-    if(btnValue>="num_0"&&btnValue<="num_9"){
-      var num=btnValue.split("_")[1];
-      if(res=="0"||res.charAt(res.length-1)=="∞"){
-        res=num;
-      }else{
-        res=res+num;
-      }
-    //处理非数字部分的按键
-    }else{
-      //处理小数点的按键
-      if(btnValue=="dot"){
-        if(!newDotSign){
-          res=res+".";
-          newDotSign=true;
-        }
-      //处理清除按键
-      }else if(btnValue=="clear"){
-        res="0";
-        newDotSign=false;
-      //处理清除按键
-      }else if(btnValue=="back"){
-        var length=res.length;
-        if(length>1){
-          res=res.substr(0,length-1); 
-        }else{
-          res="0";
-        }
-      //处理加减乘除按键
-      }else if(btnValue=="add"||btnValue=="sub"||btnValue=="mul"||btnValue=="div"){
-        newDotSign=false;
-        var sign;
-        switch(btnValue){
-          case "add":
-            sign="+";
-            break;
-          case "sub":
-            sign = "-";
-            break;
-          case "mul":
-            sign = "*";
-            break;
-          case "div":
-            sign = "/";
-            break; 
-        }
-        if(!isNaN(res.charAt(res.length-1))){
-          res = res + sign;
-        }
-      }
-
-
-    }
-    this.setData({
-      result:res,
-      dotSign:newDotSign
-    });
-  },
-  equals(){
-    var str=this.data.result;
-    var strArr=[];
-    var item="";
-    var temp=0;
-    for(var i=0;i<=str.length;i++){
-      var ch=str.charAt(i);
-      if((ch!=""&&ch>=0&&ch<=9)||ch=="."){
-        item=item+ch;
-      }else{
-        strArr[temp]=item;
-        temp++;
-        strArr[temp]=ch;
-        temp++;
-      }
-    }
-    if(isNaN(strArr[strArr.length-1])){
-      strArr.pop();
-    }
-    var res=strArr[0]*1;
-    var num;
-    for(var i=1;i<strArr.length;i=i+2){
-      if (res == "∞"){
-        break;
-      }
-      num=strArr[i+1]*1;
-      switch(strArr[i]){
-        case "+":
-          res=res+num;
-          break;
-        case "-":
-          res = res-num;
-          break;
-        case "*":
-          res = res*num;
-          break;
-        case "/":
-          if(num!=0){
-            res = res/num;
-          }else{
-            res="∞";
-          }
-          break;
-      }
-    }
-    this.setData({
-      result:"="+res
-    });
-  }*/
+  
   clickButton(e){
-    console.log(e);
     var data=this.data.result;
     //获取上一次的结果值
     var tmp=this.data.temp;
@@ -173,6 +71,8 @@ Page({
     //获取上一次的运算符
     var noNumFlag=this.data.flag;
     //获取上一次的非数字按钮标志
+    var expr1=this.data.expr;
+    //获取前面的表达式
 
     //判断是否是按了数字键
     if(e.target.id>="num_0" && e.target.id<="num_9"){
@@ -196,6 +96,7 @@ Page({
           noNumFlag = false;
         }
       }else if(e.target.id=="clear"){
+
         //如果是清除按键则全部清零
         data=0;
         tmp=0;
@@ -207,24 +108,37 @@ Page({
         }else{
           data=0;
         }
+      }else if(e.target.id=="history"){
+        //跳转到history页面
+        wx.navigateTo({
+          url: '../history/history'
+        })
       }else if(e.target.id=="div"){
+        expr1+=data.toString()+"/";  //生成表达式
         data=calculate(tmp,lastoper1,data);
         tmp=data;
         lastoper1="/";
       } else if(e.target.id == "mul"){
+        expr1 += data.toString() + "*";  //生成表达式
         data = calculate(tmp, lastoper1, data);
         tmp = data;
         lastoper1 = "*";
       } else if(e.target.id == "add"){
+        expr1 += data.toString() + "+";  //生成表达式
         data = calculate(tmp, lastoper1, data);
         tmp = data;
         lastoper1 = "+";
       } else if(e.target.id == "sub"){
+        expr1 += data.toString() + "-";  //生成表达式
         data = calculate(tmp, lastoper1, data);
         tmp = data;
         lastoper1 = "-";
       } else if(e.target.id == "equals"){
+        expr1 += data.toString();  
         data = calculate(tmp, lastoper1, data);
+        expr1 += "=" + data;  ////生成表达式
+        saveExprs(expr1); //调用函数保存到本地缓存
+        expr1="";
         tmp = 0;
         lastoper1 = "+";
       }
@@ -235,9 +149,17 @@ Page({
     result:data,
     lastoper:lastoper1,
     temp:tmp,
-    flag:noNumFlag
+    flag:noNumFlag,
+    expr:expr1
   })
 
+  },
+
+  //更改历史记录标志
+  recordHistory(e){
+    this.setData({
+      record:e.detail.value
+    })
   }
 })
 

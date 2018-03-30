@@ -11,10 +11,15 @@ page{
 }
 .screen view{
   color: #fff;
-  font-size: 30px;
+  font-size: 60px;
   text-align: right;
   margin-right: 30rpx;
 }
+.historytext{
+  color: #fff;
+  display: inline;
+}
+
 .btnGroup{
   display: flex;
   flex-direction: row; 
@@ -49,7 +54,7 @@ page{
 
 icon{
   position: absolute;
-  left: 55rpx;
+  left: 62rpx;
   top: 37rpx;
 }
 button::after{
