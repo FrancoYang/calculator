@@ -137,7 +137,11 @@ Page({
         expr1 += data.toString();  
         data = calculate(tmp, lastoper1, data);
         expr1 += "=" + data;  ////生成表达式
-        saveExprs(expr1); //调用函数保存到本地缓存
+
+        if(this.data.record){
+          saveExprs(expr1); //如果启用了保存历史的功能，调用函数保存到本地缓存
+        }
+        
         expr1="";
         tmp = 0;
         lastoper1 = "+";

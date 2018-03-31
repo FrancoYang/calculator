@@ -1,5 +1,6 @@
-
-
-<block wx:for="{{exprs}}">
- <view>{{item}}</view>
-</block>
+<view class='content'>
+  <view class='title'>历史记录</view>
+  <block wx:for="{{exprs}}">
+    <view class='item'>{{item}}</view>
+  </block>
+</view>

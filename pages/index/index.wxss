@@ -1,6 +1,7 @@
 /**index.wxss**/
 page{
   background: #000;
+  
 }
 .screen{
   position: fixed;
@@ -54,8 +55,8 @@ page{
 
 icon{
   position: absolute;
-  left: 62rpx;
-  top: 37rpx;
+  left: 66rpx;
+  top: 34rpx;
 }
 button::after{
   border-radius: 0;
